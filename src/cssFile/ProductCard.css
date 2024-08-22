@@ -1,0 +1,10 @@
+
+.cardStyle img{
+    width: 250px;
+    height: 400px;
+    margin-top: 2rem;
+}
+
+.cardStyle:hover{
+    transform: scale(1.1);
+}

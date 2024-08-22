@@ -1,0 +1,15 @@
+.loginStyle:hover {
+    color: purple;
+}
+
+
+.menuStyle {
+    padding: 10px;
+    cursor: pointer;
+    color: black;
+}
+
+.menuStyle:hover {
+    color: red;
+
+}
