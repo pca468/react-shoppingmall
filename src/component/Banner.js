@@ -1,89 +1,62 @@
 import React, { useState, useEffect } from "react";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
-const image = [
-  "https://images.unsplash.com/photo-1450297166380-cabe503887e5?w=2000&auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDN8fGZhc2hpb258ZW58MHx8MHx8fDA%3D",
-  "https://images.unsplash.com/photo-1505022610485-0249ba5b3675?w=2000&auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDh8fGZhc2hpb258ZW58MHx8MHx8fDA%3D",
-  "https://images.unsplash.com/photo-1601597565151-70c4020dc0e1?w=2000&auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzV8fGZhc2hpb258ZW58MHx8MHx8fDA%3D",
+const images = [
+  "https://images.unsplash.com/photo-1485125639709-a60c3a500bf1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1463100099107-aa0980c362e6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 ];
 
-const Banner = () => {
-  const [imageIndex, setImageIndex] = useState(0);
+const responsive = {
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 1,
+    slidesToSlide: 1, // optional, default to 1.
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 1,
+    slidesToSlide: 1, // optional, default to 1.
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+    slidesToSlide: 1, // optional, default to 1.
+  },
+};
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setImageIndex((preIndex) => (preIndex + 1) % image.length);
-    }, 1500);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const handlePreClick = () => {
-    setImageIndex((preIndex) => (preIndex - 1) % image.length);
-  };
-
-  const handleNextClick = () => {
-    setImageIndex((preIndex) => (preIndex + 1) % image.length);
-  };
-
+const Banner = (props) => {
   return (
-    <div
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "100vh",
-        overflow: "hidden",
-        background: "linear-gradient(to bottom, #000000, #434343)"
-      }}
-    >
-      <button
-        onClick={handlePreClick}
-        style={{
-          position: "absolute",
-          top: "50%",
-          transform: "translateY(-50%)",
-          backgroundColor: "rgba(0,0,0,0.5)",
-          border:"none",
-          color:"white",
-          fontSize:"2rem",
-          cursor:"pointer",
-          padding:"0.5rem",
-          zIndex:"1",
-          left:10,
-        }}
+    <div style={{marginBottom:"10rem"}}>
+      <Carousel
+        swipeable={true}
+        draggable={false}
+        showDots={true}
+        responsive={responsive}
+        ssr={true} // means to render carousel on server-side.
+        infinite={true}
+        autoPlay={props.deviceType !== "mobile" ? true : false}
+        autoPlaySpeed={3000}
+        keyBoardControl={true}
+        customTransition="all .5"
+        transitionDuration={500}
+        containerClass="carousel-container"
+        removeArrowOnDeviceType={["tablet", "mobile"]}
+        deviceType={props.deviceType}
+        dotListClass="custom-dot-list-style"
+        itemClass="carousel-item-padding-40-px"
       >
-        &#9664;
-      </button>
-      <img
-        src={image[imageIndex]}
-        style={{
-          width: "100%",
-          height: "100vh",
-          objectFit: "contain",
-          objectPosition: "center",
-          transition: "opacity 0.5s ease-in-out",
-          transform: "translateZ(0)",
-          translateZ:"0",
-          backfaceVisibility:"hidden",
-        }}
-      />
-      <button
-        onClick={handleNextClick}
-        style={{
-            position: "absolute",
-            top: "50%",
-            transform: "translateY(-50%)",
-            backgroundColor: "rgba(0,0,0,0.5)",
-            border:"none",
-            color:"white",
-            fontSize:"2rem",
-            cursor:"pointer",
-            padding:"0.5rem",
-            zIndex:"1",
-            right:10,
-          }}
-      >
-        &#9654;
-      </button>
+        {images.map((image, index) => (
+          <div>
+            <img
+              src={image}
+              alt={`Slide ${index + 1}`}
+              style={{ width: "100%", height: "100vh", objectFit: "cover" }}
+            />
+          </div>
+        ))}
+      </Carousel>
     </div>
   );
 };
