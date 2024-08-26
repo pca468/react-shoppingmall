@@ -121,20 +121,25 @@ const Navbar = ({ authenticate, setAuthenticate }) => {
             {/* 햄버거 메뉴 아이콘 */}
 
             <div
-              className={`overlay ${menuOpen ? "visible" : ""}`}
+              className={`hamburger-icon ${menuOpen ? "open" : ""}`}
               onClick={() => setMenuOpen(!menuOpen)}
               style={{ cursor: "pointer", padding: "10px" }}
             >
               <FontAwesomeIcon icon={menuOpen ? faTimes : faBars} size="2x" />
             </div>
-            
 
-            {/* 메뉴 리스트 */}
-            
+            {/* 메뉴 리스트와 오버레이 */}
+            <div
+              className={` ${menuOpen ? "visible" : ""}`}
+              onClick={() => setMenuOpen(false)} 
+              style={{ cursor: "pointer", zIndex: 2 }} 
+            ></div>
+
             <ul
               className={`menuList ${menuOpen ? "open" : ""}`}
               style={{
-                display: menuOpen ? "flex" : "none",
+                display: isMobile ? (menuOpen ? "flex" : "none") : "flex",
+                flexDirection: isMobile ? "column" : "row",
                 listStyleType: "none",
                 padding: 0,
                 margin: 0,
@@ -164,9 +169,9 @@ const Navbar = ({ authenticate, setAuthenticate }) => {
               </li>
               {menuList.map(
                 (
-                  menu // menuList에서 map함수를 활용하고 map 안에는 menu가 있고 각각의 menu는 li태그에 들어있다 의 뜻
+                  menu,index
                 ) => (
-                  <li
+                  <li key={index}
                     style={{ padding: "10px", cursor: "pointer" }}
                     className="menuStyle"
                   >
