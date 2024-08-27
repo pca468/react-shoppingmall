@@ -1,17 +1,15 @@
 .loginStyle:hover {
-    color: purple;
+  color: purple;
 }
 
-
 .menuStyle {
-    padding: 10px;
-    cursor: pointer;
-    color: black;
+  padding: 10px;
+  cursor: pointer;
+  color: black;
 }
 
 .menuStyle:hover {
-    color: red;
-
+  color: red;
 }
 
 /* 햄버거 메뉴 애니메이션 */
@@ -26,39 +24,42 @@
   align-items: center;
   justify-content: center;
   background-color: white;
+  transform: translateX(-100%);
   transition: left 0.3s ease-in-out;
-  z-index: 2;
+  z-index: 1;
 }
 
 .menuList.open {
   left: 0;
   display: flex;
+  transform: translateX(0);
+  background-color: white
 }
-  
-  /* 어두운 배경 */
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: none;
-    z-index: 1;
-  }
-  
-  .overlay.visible {
-    display: block;
-  }
 
-  .menuList {
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .hamburger-icon {
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .hamburger-icon.open {
-    transform: rotate(90deg);
-  }
+/* 어두운 배경 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 1;
+}
+
+.overlay.visible {
+  display: block;
+}
+
+.menuList {
+  transition: all 0.3s ease-in-out;
+}
+
+.hamburger-icon {
+  transition: transform 0.3s ease-in-out;
+}
+
+.hamburger-icon.open {
+  transform: rotate(90deg);
+}
